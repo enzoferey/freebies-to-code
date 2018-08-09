@@ -183,25 +183,25 @@ button {
 
 @font-face {
   font-family: PoppinsThin;
-  src: url("./fonts/Poppins-Thin.ttf");
+  src: url("../fonts/Poppins-Thin.ttf");
 }
 
 @font-face {
   font-family: PoppinsLight;
-  src: url("./fonts/Poppins-Light.ttf");
+  src: url("../fonts/Poppins-Light.ttf");
 }
 
 @font-face {
   font-family: Poppins;
-  src: url("./fonts/Poppins-Regular.ttf");
+  src: url("../fonts/Poppins-Regular.ttf");
 }
 
 @font-face {
   font-family: PoppinsMedium;
-  src: url("./fonts/Poppins-Medium.ttf");
+  src: url("../fonts/Poppins-Medium.ttf");
 }
 
 @font-face {
   font-family: PoppinsBold;
-  src: url("./fonts/Poppins-Bold.ttf");
+  src: url("../fonts/Poppins-Bold.ttf");
 }
