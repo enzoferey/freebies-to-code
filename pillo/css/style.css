@@ -111,6 +111,8 @@ navbar {
   float: right;
   width: 28px;
   height: 16px;
+  position: relative;
+  top: 6px;
 }
 
 /* CONTENT */
