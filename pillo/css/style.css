@@ -35,9 +35,9 @@ header {
   margin-bottom: 117px;
 }
 
-header > svg {
+.bg-navbar {
   position: absolute;
-  width: 740px;
+  width: 726px;
   height: 56px;
   fill: #000e28;
   left: -166px;
