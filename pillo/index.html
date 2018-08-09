@@ -8,6 +8,7 @@
   <title>Pillo</title>
 
   <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/fonts.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -22,7 +23,14 @@
         </svg>
       </div>
       <navbar>
-        <img class="menu-icon" src="img/menu.svg" alt="Menu icon">
+        <div id="menu-icon" class="menu-icon">
+          <img src="img/menu.svg" alt="Menu icon">
+          <div class="pulse">
+            <svg viewBox="0 0 1024 1024">
+              <circle cx="512" cy="512" r="512" />
+            </svg>
+          </div>
+        </div>
         <p class="logo">pillo
           <span class="logo-point">.</span>
         </p>
@@ -31,7 +39,13 @@
           <a class="link" href="">About</a>
           <a class="link" href="">Order</a>
         </nav>
-        <button class="light close-icon adjust-top">x</button>
+        <div class="light close-icon adjust-top">x
+          <div class="pulse">
+            <svg viewBox="0 0 1024 1024">
+              <circle cx="512" cy="512" r="512" />
+            </svg>
+          </div>
+        </div>
       </navbar>
       <img class="envelope" src="img/contact.svg" alt="Envelope">
     </header>
@@ -52,6 +66,106 @@
       </section>
     </main>
   </div>
+
+  <script>
+    var menu = document.getElementById("menu-icon");
+    var bgNavbar = document.getElementsByClassName("bg-navbar")[0];
+    var navigation = document.getElementsByClassName("navigation")[0];
+    var closeIcon = document.getElementsByClassName("close-icon")[0];
+
+    var circleMenu = menu.childNodes[3].childNodes[1].childNodes[1];
+    var circleCloseIcon = closeIcon.childNodes[1].childNodes[1].childNodes[1];
+
+    var firstLink = navigation.childNodes[1];
+    var secondLink = navigation.childNodes[3];
+    var thirdLink = navigation.childNodes[5];
+
+    // Listeners
+    menu.addEventListener("click", animateClickMenu, false);
+    closeIcon.addEventListener("click", animateClickCloseIcon, false);
+
+    function movedMenuLeft() {
+      menu.classList.add("left");
+      openBgNavbar();
+      circleMenu.removeEventListener("animationend", movedMenuLeft);
+    }
+
+    function animateClickMenu() {
+      animateClick(circleMenu, movedMenuLeft);
+    }
+
+    function hideIcon() {
+      closeIcon.classList.remove("active");
+      hideNavigation();
+      circleCloseIcon.removeEventListener("animationend", hideIcon);
+    }
+
+    function animateClickCloseIcon() {
+      animateClick(circleCloseIcon, hideIcon);
+    }
+
+    function animateClick(circle, callback) {
+      // Do animation
+      circle.classList.add("animated-pulse");
+      circle.addEventListener("animationend", callback, false);
+    }
+
+    function showNavigation() {
+      // Appear navigation
+      firstLink.classList.add("active");
+      secondLink.classList.add("active", "moving");
+      thirdLink.classList.add("active", "moving");
+
+      thirdLink.addEventListener("transitionend", showCloseIcon, false);
+      bgNavbar.removeEventListener("animationend", showNavigation);
+    }
+
+    function showCloseIcon() {
+      closeIcon.classList.add("active");
+      secondLink.classList.remove("moving");
+      thirdLink.classList.remove("moving");
+
+      thirdLink.removeEventListener("transitionend", showCloseIcon);
+    }
+
+    function hideNavigation() {
+      // Appear navigation
+      firstLink.classList.add("dissapear");
+      secondLink.classList.add("dissapear");
+      thirdLink.classList.add("dissapear");
+
+      thirdLink.addEventListener("transitionend", closeBgNavbar, false);
+    }
+
+    function openBgNavbar() {
+      bgNavbar.classList.add("active");
+
+      bgNavbar.addEventListener("animationend", showNavigation, false);
+    }
+
+    function closeBgNavbar() {
+      firstLink.classList.remove("active", "dissapear");
+      secondLink.classList.remove("active", "dissapear");
+      thirdLink.classList.remove("active", "dissapear");
+
+      bgNavbar.classList.remove("active");
+      void bgNavbar.offsetWidth;
+      bgNavbar.classList.add("backwards");
+
+      bgNavbar.addEventListener("animationend", reset, false);
+      thirdLink.removeEventListener("transitionend", closeBgNavbar);
+    }
+
+    function reset() {
+      menu.classList.remove("left");
+
+      bgNavbar.classList.remove("backwards");
+      bgNavbar.removeEventListener("animationend", reset);
+
+      circleMenu.classList.remove("animated-pulse");
+      circleCloseIcon.classList.remove("animated-pulse");
+    }
+  </script>
 </body>
 
 </html>

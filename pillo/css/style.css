@@ -40,8 +40,26 @@ header {
   width: 726px;
   height: 56px;
   fill: #000e28;
-  left: -166px;
+  left: -992px; /* 726 (width) + 166 (padding)*/
   top: -14px;
+}
+
+.bg-navbar.active {
+  animation: navbarAppear 1s 0.5s cubic-bezier(0.13, 0.86, 0.51, 1.01) forwards; /* delays 50% of menu animation */
+}
+.bg-navbar.backwards {
+  animation: navbarAppear 1s cubic-bezier(0.13, 0.86, 0.51, 1.01) reverse; /* delays 50% of menu animation */
+}
+
+@keyframes navbarAppear {
+  0% {
+    transform: scale(0.5, 1.4);
+  }
+
+  100% {
+    transform: scale(1, 1);
+    left: -166px;
+  }
 }
 
 navbar {
@@ -51,11 +69,60 @@ navbar {
 }
 
 .menu-icon {
+  position: relative;
   display: inline-block;
+  left: 0;
   width: 26px;
   height: 18px;
   margin-right: 36px;
   cursor: pointer;
+  transition: left 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.menu-icon.left {
+  left: -146px;
+}
+
+.pulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  width: 50px;
+}
+
+.pulse > svg {
+  border-radius: 50%;
+}
+
+.pulse > svg > circle {
+  fill: none;
+  stroke: white;
+  transform: scale(0);
+  opacity: 0;
+  transform-origin: 50% 50%;
+  stroke-width: 100%;
+}
+
+.animated-pulse {
+  animation: pulse 0.3s linear;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.5;
+  }
+
+  20% {
+    stroke-width: 100%;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 0.5;
+    stroke-width: 50px;
+  }
 }
 
 .logo {
@@ -87,30 +154,67 @@ navbar {
   text-transform: uppercase;
   text-decoration: none;
   color: white;
-  opacity: 0.36;
   letter-spacing: 2px;
 
-  transition: opacity 0.3s;
+  opacity: 0;
+  top: 0;
+  visibility: hidden;
+  position: relative;
+  transition: all 0.3s;
+}
+
+.link:nth-child(2),
+.link:nth-child(3) {
+  left: -12px;
 }
 
 .link + .link {
   margin-left: 35px;
 }
 
-.active-link,
+.link.active {
+  visibility: visible;
+  left: 0;
+  opacity: 0.36;
+}
+
+.link.active.active-link,
 .link:hover {
   opacity: 1;
 }
 
+.link.active.moving:nth-child(2) {
+  transition-delay: 0.1s;
+}
+
+.link.active.moving:nth-child(3) {
+  transition-delay: 0.4s;
+}
+
+.link.active.dissapear {
+  top: -12px;
+  opacity: 0;
+}
+
 .close-icon {
+  position: relative;
+  display: inline-block;
+  text-align: center;
   width: 26px;
   height: 26px;
+  line-height: 26px;
   margin-left: 56px;
   color: #40bef8;
-  background: none;
-  border: none;
   font-size: 16px;
   cursor: pointer;
+  transform: scale(0);
+
+  transition: transform 0.3s;
+  transform-origin: 50% 50%;
+}
+
+.close-icon.active {
+  transform: scale(1);
 }
 
 .envelope {
@@ -183,46 +287,4 @@ h4 {
   position: relative;
   left: -2px;
   letter-spacing: 1px;
-}
-
-/* FONTS */
-.thin {
-  font-family: PoppinsThin, sans-serif;
-}
-
-.light {
-  font-family: PoppinsLight, sans-serif;
-}
-
-.medium {
-  font-family: PoppinsMedium, sans-serif;
-}
-
-.bold {
-  font-family: PoppinsBold, sans-serif;
-}
-
-@font-face {
-  font-family: PoppinsThin;
-  src: url("../fonts/Poppins-Thin.ttf");
-}
-
-@font-face {
-  font-family: PoppinsLight;
-  src: url("../fonts/Poppins-Light.ttf");
-}
-
-@font-face {
-  font-family: Poppins;
-  src: url("../fonts/Poppins-Regular.ttf");
-}
-
-@font-face {
-  font-family: PoppinsMedium;
-  src: url("../fonts/Poppins-Medium.ttf");
-}
-
-@font-face {
-  font-family: PoppinsBold;
-  src: url("../fonts/Poppins-Bold.ttf");
 }
