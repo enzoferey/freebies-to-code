@@ -55,6 +55,7 @@ navbar {
   width: 26px;
   height: 18px;
   margin-right: 36px;
+  cursor: pointer;
 }
 
 .logo {
@@ -88,13 +89,16 @@ navbar {
   color: white;
   opacity: 0.36;
   letter-spacing: 2px;
+
+  transition: opacity 0.3s;
 }
 
 .link + .link {
   margin-left: 35px;
 }
 
-.active-link {
+.active-link,
+.link:hover {
   opacity: 1;
 }
 
@@ -104,15 +108,22 @@ navbar {
   margin-left: 56px;
   color: #40bef8;
   background: none;
-  text-transform: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
 }
 
 .envelope {
   float: right;
   width: 28px;
-  height: 16px;
-  position: relative;
-  top: 6px;
+  height: 28px;
+  cursor: pointer;
+
+  transition: transform 0.3s;
+}
+
+.envelope:hover {
+  transform: scale(1.2);
 }
 
 /* CONTENT */
@@ -136,15 +147,23 @@ h4 {
   line-height: 16px;
 }
 
-button {
+.cta-button {
   width: 213px;
   height: 51px;
   font-size: 16px;
   text-transform: uppercase;
   color: inherit;
   background: #002a69;
-  border: none;
+  border: 1px solid transparent;
   margin-bottom: 82px;
+  cursor: pointer;
+
+  transition: background 0.3s, border-color 0.3s;
+}
+
+.cta-button:hover {
+  background: none;
+  border-color: white;
 }
 
 .tip > p {
